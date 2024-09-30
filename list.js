@@ -28,12 +28,20 @@ class TodoView {
     this.toggleView();
     this.bind()
   }
-
+  
   bind() {
-    $("button-add-item").addEventListener('click', _bind(this.addBtnListner, this));
-    $("button-return").addEventListener('click', _bind(this.toggleView, this));
-    $("button-view-finished").addEventListener('click', _bind(this.toggleView, this));
-  }
+    console.log(document.getElementById('button-add-item'));
+    console.log(document.getElementById('input-content'));
+    $("#button-add-item").addEventListener('click', this.addBtnListner.bind(this));
+    $("#button-return").addEventListener('click', this.toggleView.bind(this));
+    $("#button-view-finished").addEventListener('click', this.toggleView.bind(this));
+    
+    $("#input-content").addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            this.addBtnListner();  // You don't need to rebind inside here
+        }
+    });
+}
 
   toggleView() {
     if (this._state == "todo") {
